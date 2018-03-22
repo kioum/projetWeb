@@ -10,7 +10,6 @@ var init = function () {
                              document.getElementById("wall4"));
 
 
-
     var engine = new Engine();
     engine.addBody(wall1);
     engine.addBody(wall2);
@@ -31,29 +30,31 @@ var init = function () {
 
 
     var canvas = document.getElementById("canvas");
-
-    canvas.addEventListener("click", function (ev) {
-	if (this != ev.target) return;
-
-
-	var x = ev.offsetX;
-	var y = ev.offsetY;
-
-
-	var div = document.createElement("div");
-	div.className = "object";
-	var sprite = new Sprite(new Vector(x,y), 30, 30, +document.getElementById("mass").value, div);
-	sprite.force = new Vector(0.01,0.01);
-	canvas.appendChild(div);
-	engine.addBody(sprite);
-
-	div.addEventListener("click", function (ev) {
-		canvas.removeChild(div);
-	    engine.removeBody(sprite);
-	});
-
-
-
+  
+    // test mdr
+    var div = document.createElement("div");
+	  div.className = "object";
+	  var sprite = new Sprite(new Vector(150,150), 30, 30, +document.getElementById("mass").value, div);
+	  sprite.force = new Vector(0.0,0.0);
+	  canvas.appendChild(div);
+	  engine.addBody(sprite);
+	  div.addEventListener("click", function (ev) {
+	    if (this != ev.target) return; 
+	     var v = sprite.origin;
+	     pressOnX = ev.offsetX+v.x;
+		   pressOnY = ev.offsetY+v.y;
+	   });
+	    
+    canvas.addEventListener("click", function (ev) {  
+	    if (this != ev.target) return;  
+  
+      if(pressOnX != 0 && pressOnY !=0){
+        var x = ev.offsetX;
+	      var y = ev.offsetY;
+        sprite.force = new Vector ((pressOnX-x)*0.001, (pressOnY-y)*0.001)
+      }
+      pressOnX = 0;
+      pressOnY = 0;
     });
 
     /* begin extra */
@@ -74,5 +75,6 @@ var init = function () {
 
     /* end extra */
 };
-
+//test
+var pressOnX=0, pressOnY=0;
 window.addEventListener("load", init);
