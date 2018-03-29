@@ -1,8 +1,22 @@
-var Player = function (name) {
-
+var Partie = function (display) {
+  this.cible = [];
+  this.niveau;
+  this.display = display;
 };
 
 
-Rect.prototype.move = function (v) {
-    this.origin = this.origin.add(v);
+// Si une partie est gagné
+Partie.prototype.win = function (v) {
+  return cibleSonTouche;
+};
+
+// Si une partie est gagné
+var cibleSonTouche = function (v) {
+    var tousTouche = true;
+    this.cible.forEach(function(element) { 
+      if(element.toucher){
+        tousTouche = false;
+      }
+    })
+    return tousTouche;
 };

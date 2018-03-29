@@ -1,28 +1,29 @@
-var Sprite = function (v, w, h, m, dom) {
+var Sprite = function (v, w, h, m) {
     console.log(m);
     Body.call(this,v, w, h, m);
-    this.display = dom;
-
 };
 
 Sprite.prototype = Object.create (Body.prototype);
 Sprite.prototype.constructor = Sprite;
 
-Sprite.prototype.draw = function () {
+Sprite.prototype.draw = function (canvas) {
+    var context = canvas.getContext('2d');
+    //On n'oublie pas de récupérer le canvas et son context.
 
-    this.display.style.left = this.origin.x + "px";
-    this.display.style.top = this.origin.y + "px";
-    this.display.style.width = this.width + "px";
-    this.display.style.height = this.height + "px";
-
-
+context.beginPath();//On démarre un nouveau tracé
     /* begin extra */
     if (this.hasCollision) {
-	this.display.style.backgroundColor = "red";
+	context.fillStyle = "#ff0000";
 	this.setCollision(false);
     } else {
-	this.display.style.backgroundColor = "";
+	context.fillStyle = "#000000";
     };
 
     /* end extra */
+
+context.fillRect(this.origin.x, this.origin.y, this.width, this.height)
+context.closePath();
+
+
+
 };

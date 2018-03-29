@@ -3,10 +3,10 @@ var Renderer = function (e) {
 };
 
 
-Renderer.prototype.update = function (dt) {
+Renderer.prototype.update = function (dt, canvas) {
 
     this.engine.update(dt);
     this.engine.bodies.forEach(function (b) {
-        b.draw();
+        b.draw(canvas);
     });
 };
