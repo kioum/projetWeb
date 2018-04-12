@@ -25,10 +25,10 @@ var init = function () {
     }, 1000/60);
 
     // test mdr
-	  var sprite = new Sprite(new Vector(15,15), 10, 10, 1);
+	  var sprite = new Sprite(new Vector(15,100), 10, 10, 1);
 	  sprite.force = new Vector(0.0,0.0);
 	  engine.addBody(sprite);
-	    
+	    /*
     canvas.addEventListener("click", function (ev) {  
 	    if (this != ev.target) return;  
       
@@ -40,26 +40,26 @@ var init = function () {
       }
       pressAngle = 0;
       pressPuissance = 0;
-    });
+    });*/
     
+  var sens = true;
   window.addEventListener("keypress", function(ev) {
         ev = ev || window.event;
     var keyCode = ev.keyCode;
-    var sens = true;
     if(keyCode == 32){
-      if(!choixAngle && !choixPuissance)
+      if(!choixAngle && !choixPuissance) {
         if(!sens)
           pressAngle -= 10;
         else 
           pressAngle += 10;
+      
         if(pressAngle < 0 || pressAngle > 180){
-            sens = !sens;
-            console.log(sens);
+           sens = !sens;
         }
-      else if (choixAngle && ! choixPuissance)
-        pressPuissance += 1;
+      }
+      else if (choixAngle && !choixPuissance)
+        pressPuissance += 0.0005;
     }
-    console.log(pressAngle);
 }, false);
 
 
@@ -67,20 +67,25 @@ window.addEventListener("keyup", function(ev) {
         ev = ev || window.event;
     var keyCode = ev.keyCode;
     if(keyCode == 32){
-        if(!choixAngle && !choixPuissance)
+      if(!choixAngle && !choixPuissance)
         choixAngle = true;
-      else if (choixAngle && ! choixPuissance)
+      else if (choixAngle && !choixPuissance)
         choixPuissance = true;
     }
     
     if(choixAngle && choixPuissance) {
+      console.log("Angle " + pressAngle);
+      let new_x = (Math.cos(pressAngle)) - (Math.sin(pressAngle));
+      let new_y = (Math.sin(pressAngle)) + (Math.cos(pressAngle));
       sprite.force = 
-        new Vector ((pressAngle-sprite.origin.x)*0.001, (pressPuissance-sprite.origin.y)*0.001)
+        new Vector (new_x*pressPuissance, new_y*pressPuissance);
+        console.log ("new Vector " + new_x*sprite.force.x + " " + new_y*pressPuissance);
       choixAngle = false;
       choixPuissance = false;
     }
 }, false);
 };
+
 //test
 var choixAngle = false, choixPuissance = false;
 var pressAngle=0, pressPuissance=0;

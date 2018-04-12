@@ -21,9 +21,8 @@ context.beginPath();//On démarre un nouveau tracé
 
     /* end extra */
 
-context.fillRect(this.origin.x, this.origin.y, this.width, this.height)
+context.fillRect(this.origin.x, this.origin.y, this.width, this.height);
 context.closePath();
-
 
 
 };

@@ -54,5 +54,5 @@ Engine.prototype.update = function (dt) {
         body.move(body.velocity.mult(dt));
 
     };
-
+  
 };
