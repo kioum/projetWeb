@@ -30,9 +30,6 @@ Body.prototype.setCollision = function (b) {
    Renvoie null si pas de collision, sinon renvoie les nouveau vecteur vitesses
    pour l'objet courant et pour b
 */
-
-
-
 Body.prototype.collision = function (b) {
 
     var mdiff = this.mDiff(b);
