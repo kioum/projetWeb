@@ -24,7 +24,7 @@ Partie.prototype.addDecors = function (e, decors) {
 	});
 }
 
-// Ajoute le decors a une partie
+// Ajoute les cibles a une partie
 Partie.prototype.addCibles = function (e, cibles) {
 	cibles.forEach(function(element){
 		e.addBody(element);

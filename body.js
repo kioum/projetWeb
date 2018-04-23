@@ -69,20 +69,20 @@ Body.prototype.collision = function (b) {
 
 	n = n.normalize();
 
-        // (2) On calcule l'impulsion j :
-        var v = this.velocity.sub(b.velocity);
-        var e = Constants.elasticity; // pour les étudiants, juste faire var e = 1;
+	// (2) On calcule l'impulsion j :
+	var v = this.velocity.sub(b.velocity);
+	var e = Constants.elasticity; // pour les étudiants, juste faire var e = 1;
 
-        var j = -(1 + e) * v.dot(n) / (this.invMass + b.invMass);
+	var j = -(1 + e) * v.dot(n) / (this.invMass + b.invMass);
 
-        // (3) On calcule les nouvelle vitesse:
-        var new_v = this.velocity.add(n.mult(j  * this.invMass));
-        var new_bv = b.velocity.sub(n.mult(j * b.invMass));
+	// (3) On calcule les nouvelle vitesse:
+	var new_v = this.velocity.add(n.mult(j  * this.invMass));
+	var new_bv = b.velocity.sub(n.mult(j * b.invMass));
 
 	b.setCollision(true);
 	this.setCollision(true);
 
-        return { velocity1 : new_v, velocity2 : new_bv };
+    return { velocity1 : new_v, velocity2 : new_bv };
 
     } else {
         return null;

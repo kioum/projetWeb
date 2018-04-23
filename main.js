@@ -31,17 +31,17 @@ var init = function () {
     }, 1000/60);
 
     // test mdr
-	var projectile = new Sprite(new Vector(15,100), 10, 10, 1);
-	projectile.force = new Vector(0.0,0.0);
+	var projectile = new Sprite(new Vector(15, 100), 10, 10, 100);
+	projectile.force = new Vector(0.0, 0.0);
+	projectile.mass = 1000000;
 	engine.addBody(projectile);
     
-	  var sens = true;
-	  window.addEventListener("keypress", function(ev) {
+	var sens = true;
+	window.addEventListener("keypress", function(ev) {
 			ev = ev || window.event;
 		var keyCode = ev.keyCode;
 		if(keyCode == 32){
 		  if(!choixAngle && !choixPuissance) {
-			console.log(pressAngle);
 			if(!sens) {
 			  pressAngle -= 15;
 			}
@@ -51,16 +51,16 @@ var init = function () {
 		  
 			if((pressAngle <= 0 || pressAngle >= 90)
 			 && (pressAngle <= 270 || pressAngle >= 360)){
-				if(pressAngle != 0 && pressAngle != 360 )
+				if(pressAngle != 0 && pressAngle != 360)
 					sens = !sens;
 				else if (pressAngle == 0)
 					pressAngle = 360;
 				else if (pressAngle == 360)
 					pressAngle = 0;
 			}
-		  }
-		  else if (choixAngle && !choixPuissance)
-			pressPuissance += 0.0005;
+		}
+		else if (choixAngle && !choixPuissance)
+			pressPuissance *= 10;
 		}
 	}, false);
 
@@ -78,12 +78,13 @@ var init = function () {
 		}
 		
 		if(choixAngle && choixPuissance) {
-		  let new_x = (Math.cos(pressAngle)) - (Math.sin(pressAngle));
-		  let new_y = (Math.sin(pressAngle)) + (Math.cos(pressAngle));
-		  projectile.force = new Vector (new_x * pressPuissance, new_y * pressPuissance);
-		  console.log ("new Vector " + new_x * projectile.force.x + " " + new_y * pressPuissance);
-		  choixAngle = false;
-		  choixPuissance = false;
+			pressPuissance = 0.001;
+			let new_x = Math.cos(pressAngle * (Math.PI / 180));
+			let new_y = -Math.sin(pressAngle * (Math.PI / 180));
+			projectile.force = new Vector (new_x, new_y);
+			console.log ("new Vector " + new_x * pressPuissance + " " + new_y * pressPuissance);
+			choixAngle = false;
+			choixPuissance = false;
 		}
 	}, false);
 };
@@ -92,5 +93,5 @@ var init = function () {
 //Nouvelle partie
 var currentPart = new Partie();
 var choixAngle = false, choixPuissance = false;
-var pressAngle = 0, pressPuissance = 0;
+var pressAngle = 0, pressPuissance = 0.0001;
 window.addEventListener("load", init);
