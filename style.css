@@ -1,13 +1,16 @@
 #decors_canvas {
-    position: relative;
     width: 1000px;
     height: 600px;
     border: 2px dashed black;
     z-index:1;
 }
 
-.object {
+#btn {
     position: absolute;
+	top : 275px;
+	left : 425px;
+	width: 100px;
+    height: 50px;
     z-index:2;
-    background-color: black;
+	font-size: 16px;
 }

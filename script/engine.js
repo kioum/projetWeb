@@ -46,6 +46,10 @@ Engine.prototype.update = function (dt) {
         body.velocity = body.velocity.add(delta_v);
 
         // On met à jour la position.
-        body.move(body.velocity.mult(dt));
+		if(body.velocity.norm() > Constants.velocity_min)
+			body.move(body.velocity.mult(dt));
+		else {
+			body.velocity = Vector.ZERO;
+		}
     };
 };

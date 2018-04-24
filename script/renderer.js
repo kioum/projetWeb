@@ -5,6 +5,7 @@ var Renderer = function (e) {
 // Permet de refresh le jeu
 Renderer.prototype.update = function (partie, dt, canvas) {
 	//ici refresh le canvas ( à l'aide de resize)
+	if(pause) return;
 	canvas.width += 0;
 	
     this.engine.update(dt);
@@ -12,13 +13,17 @@ Renderer.prototype.update = function (partie, dt, canvas) {
         b.draw(partie, canvas);
     });
 	
+	var proj = partie.projectile;
+	
 	//Affichage de la fleche d'angle ( si la velocity n'est pas touché alors on l'affiche)
-	if(partie.projectile.velocity.x == 0 && 
-		partie.projectile.velocity.y == 0){
+	if(proj.velocity.x == 0 && proj.velocity.y == 0){
+		// le projectile peut bouger
+		projMove = false;	
 		// On remet tout de base(si un projectile a était lancé auparavant)
-		Constants.gravity = new Vector (0, 0);
+		proj.origin = new Vector(15, 100);
+		proj.force = new Vector(0.0, 0.0);
 		
-		var proj = partie.projectile;
+		
 		var context = canvas.getContext('2d');
 		context.beginPath();//On démarre un nouveau tracé
 		
@@ -57,4 +62,12 @@ Renderer.prototype.update = function (partie, dt, canvas) {
 		context.stroke();
 		context.closePath();
 	}
+};
+
+Renderer.prototype.pause = function (partie, canvas) {
+	var context = canvas.getContext('2d');
+	context.strokeStyle="red";
+	context.beginPath();//On démarre un nouveau tracé
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	context.closePath();
 };
