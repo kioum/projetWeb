@@ -4,9 +4,15 @@ var Renderer = function (e) {
 
 // Permet de refresh le jeu
 Renderer.prototype.update = function (partie, dt, canvas) {
-	//ici refresh le canvas ( à l'aide de resize)
 	if(pause) return;
-	canvas.width += 0;
+	//ici refresh le canvas ( à l'aide de resize)
+	canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+	
+	//ici le code après qu'il gagne un niveau
+	if(partie.win()) {
+		this.win(partie, canvas);
+		return;
+	}
 	
     this.engine.update(dt);
     this.engine.bodies.forEach(function (b) {
@@ -20,10 +26,9 @@ Renderer.prototype.update = function (partie, dt, canvas) {
 		// le projectile peut bouger
 		projMove = false;	
 		// On remet tout de base(si un projectile a était lancé auparavant)
-		proj.origin = new Vector(15, 100);
+		proj.origin = new Vector(partie.posProj[0], partie.posProj[1]);
 		proj.force = new Vector(0.0, 0.0);
-		
-		
+			
 		var context = canvas.getContext('2d');
 		context.beginPath();//On démarre un nouveau tracé
 		
@@ -65,9 +70,44 @@ Renderer.prototype.update = function (partie, dt, canvas) {
 };
 
 Renderer.prototype.pause = function (partie, canvas) {
+	//document.getElementById("btn").style.display = "block";
+	
+	//On démarre un nouveau tracé
 	var context = canvas.getContext('2d');
-	context.strokeStyle="red";
-	context.beginPath();//On démarre un nouveau tracé
+	context.beginPath();
+	
+	//On creer un carre noir pour "enlever l'arriere plan"
+	context.fillStyle = 'black';
+	context.globalAlpha = 0.5;
 	context.fillRect(0, 0, canvas.width, canvas.height);
+	context.globalAlpha = 1.0;
+	
+	//On affiche la pause
+	context.font = '25px Arial';
+	context.fillStyle = 'white';
+	context.strokeText('PAUSE', canvas.width/2 - 50, canvas.height/4);
+	
+	context.closePath();
+};
+
+Renderer.prototype.win = function (partie, canvas) {
+	document.getElementById("btn").style.display = "block";
+	document.getElementById("btn").innerHTML = "REJOUER";
+	
+	//On démarre un nouveau tracé
+	var context = canvas.getContext('2d');
+	context.beginPath();
+	
+	//On creer un carre noir pour "enlever l'arriere plan"
+	context.fillStyle = 'black';
+	context.globalAlpha = 0.5;
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	context.globalAlpha = 1.0;
+	
+	//On affiche la pause
+	context.font = '25px Arial';
+	context.fillStyle = 'white';
+	context.strokeText('Bravo', canvas.width/2 - 40, canvas.height/4);
+	
 	context.closePath();
 };

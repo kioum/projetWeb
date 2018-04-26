@@ -14,6 +14,10 @@ Engine.prototype.removeBody = function (b) {
 	this.bodies.splice(i, 1);
 };
 
+Engine.prototype.removeAllBody = function () {
+    this.bodies = [];
+};
+
 Engine.prototype.update = function (dt) {
     for (var i = 0; i < this.bodies.length; i ++) {
 
@@ -38,7 +42,7 @@ Engine.prototype.update = function (dt) {
 		if (Number.isFinite(body.mass))
 			body.force = body.force.add(Constants.gravity.mult(body.mass));
 		/* end extra */
-
+	  
         // On calcule la nouvelle accéleration :
         var a = body.force.mult(body.invMass);
         body.force = Vector.ZERO;

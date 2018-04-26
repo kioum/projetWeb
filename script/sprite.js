@@ -1,5 +1,6 @@
-var Sprite = function (v, w, h, m) {
+var Sprite = function (v, w, h, m, img) {
     Body.call(this,v, w, h, m);
+	this.img = img;
 };
 
 Sprite.prototype = Object.create (Body.prototype);
@@ -23,13 +24,24 @@ Sprite.prototype.draw = function (partie, canvas) {
 		});
 		if (estPasCible)
 			this.setCollision(false);
-		
+		else 
+		{
+			this.img = this.img.substring(0, this.img.length - 2) + "B1";
+		}
     } else {
 		context.fillStyle = "#000000";
     };
     /* end extra */
 	
 	//On créer un rectangle representant le sprite en question
-	context.fillRect(this.origin.x, this.origin.y, this.width, this.height);
+	if(this.img) {
+		//affichage de l'image des sprites		
+		let image = new Image();
+		image.src = 'assets/' + this.img + '.png';
+		context.drawImage(image, this.origin.x, this.origin.y, this.width, this.height);
+	} else 
+		context.fillRect(this.origin.x, this.origin.y, this.width, this.height);
+
+		
 	context.closePath();
 };

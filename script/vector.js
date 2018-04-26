@@ -11,6 +11,11 @@ Vector.prototype.sub = function (v) {
     return new Vector(this.x - v.x, this.y - v.y );
 };
 
+Vector.prototype.div = function(k){ 
+console.log(this.x);
+	return new Vector(this.x / k , this.y / k);
+}
+
 Vector.prototype.mult = function (k) {
     return new Vector(this.x * k, this.y * k );
 };
@@ -27,6 +32,8 @@ Vector.prototype.normalize = function () {
     return this.mult(1/this.norm ());
 };
 
+
+ 
 Vector.ZERO = new Vector (0,0);
 Vector.UNIT_X = new Vector (1,0);
 Vector.UNIT_Y = new Vector (0,1);
