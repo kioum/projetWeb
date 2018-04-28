@@ -1,8 +1,9 @@
 var initGame = function () {
 	//permet de mettre en reliason tous les elements de la partie		
 	loadLevel();
-	
-	if(document.getElementById("btn").innerHTML == "JOUER"){
+	let btn_rejouer = document.getElementById("btn");
+	if(btn_rejouer.innerHTML == "JOUER"){
+		btn_rejouer.innerHTML = "REJOUER";
 		var sens = true;
 		window.addEventListener("keydown", function(ev) {
 				ev = ev || window.event;
@@ -12,6 +13,11 @@ var initGame = function () {
 			if(keyCode == 27 && !currentPart.win()){
 				pause = !pause; 
 				currentPart.renderer.pause();
+				
+				if(btn_rejouer.style.display == "none")
+					btn_rejouer.style.display = "block";
+				else
+					btn_rejouer.style.display = "none";
 			}
 			
 			//Touche z et q
@@ -80,10 +86,10 @@ function init(){
 		//On affiche le titre
 		context.font = '12px bold Arial';
 		context.fillStyle = 'black';
-		context.fillText("Commandes :", canvas_fond.width/4 - 5, canvas_fond.height/4 + 22);
+		context.fillText("Commandes :", canvas_fond.width/4 - 6, canvas_fond.height/4 + 22);
 		context.fillText("\t-\tAngle de viser : Z, Q, S, D ou les fleches", canvas_fond.width/4, canvas_fond.height/4 + 34);
 		context.fillText("\t-\tPuissance : ESPACE", canvas_fond.width/4, canvas_fond.height/4 + 46);
-		context.fillText("\t-\tPause : ECHAP", canvas_fond.width/4, canvas_fond.height/4 + 58);
+		context.fillText("\t-\tPause : ECHAP (Voir les defis)", canvas_fond.width/4, canvas_fond.height/4 + 58);
 	});
 	
 	//Bouton jouer ( et rejouer)

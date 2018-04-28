@@ -117,13 +117,8 @@ Renderer.prototype.finDeNiveau = function () {
 	let btn_next = document.getElementById("btn_next");
 	pause = true;
 	
-	if(btn_rejouer.innerHTML = "JOUER"){
-		btn_rejouer.style.display = "block";		
-		btn_rejouer.innerHTML = "REJOUER";
-	}
 	//btn nextlevel
-	btn_rejouer.style.top = 500 + "px";
-	btn_rejouer.style.left = 45 + "%";
+	btn_rejouer.style.display = "block";
 	btn_next.style.display = "block";
 	
 	//On démarre un nouveau tracé
@@ -145,7 +140,11 @@ Renderer.prototype.finDeNiveau = function () {
 	//On affiche les defis de la currentPart
 	context.font = '12px Arial';
 	context.fillStyle = 'white';
-	context.fillText('Defi(s) reussi(s) :', canvas.width/4 - 60, canvas.height/4 + 20);
+	context.fillText('Défi(s) ', canvas.width/4 - 60, canvas.height/4 + 20);
+	context.fillStyle = 'green';
+	context.fillText('réussi(s) ', canvas.width/4 - 20, canvas.height/4 + 20);
+	context.fillStyle = 'red';
+	context.fillText('raté(s) ', canvas.width/4 + 30, canvas.height/4 + 20);
 	context.font = '11px Arial';
 	let cpt = 1;
 	currentPart.defis.forEach(function(e){

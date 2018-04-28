@@ -18,8 +18,8 @@
 	top : 500px;
 	width: 100px;
     height: 50px;
-	left: 50%; /* à 50%/50% du parent référent */
-	transform: translate(-50%, 0); /* décalage de 50% de sa propre taille */
+	left: 45%; /* à 50%/50% du parent référent */
+	transform: translate(-45%, 0); /* décalage de 50% de sa propre taille */
     z-index:2;
 	font-size: 16px;
 }
