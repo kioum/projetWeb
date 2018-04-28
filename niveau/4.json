@@ -1,0 +1,92 @@
+{ 
+  "projectile" : {
+		"x" : 15,
+		"y" : 60,
+		"taille" : 16,
+		"mass" : 100,
+		"texture" : "Items/64-64_EnemyBlockIron"
+	},
+  "decors": [ 
+      {
+          "x": 0, 
+          "y": 0,
+		  "width" : 300,
+		  "height" : 10,
+		  "texture" : "Tiles/WaveForest_Square"
+      },
+	   {
+          "x": 0, 
+          "y": 140,
+		  "width" : 300,
+		  "height" : 10,
+		  "texture" : "Tiles/WaveForest_Square"
+      },
+	   {
+          "x": 290, 
+          "y": 10,
+		  "width" : 10,
+		  "height" : 130,
+		  "texture" : "Tiles/WaveForest_MudSquare"
+      },
+	   {
+          "x": 0, 
+          "y": 10,
+		  "width" : 10,
+		  "height" : 130,
+		  "texture" : "Tiles/WaveForest_MudSquare"
+      },{
+          "x": 130, 
+          "y": 40,
+		  "width" : 20,
+		  "height" : 80,
+		  "texture" : "Tiles/WaveForest_Square"
+      },{
+          "x": 200, 
+          "y": 40,
+		  "width" : 90,
+		  "height" : 10,
+		  "texture" : "Tiles/WaveForest_Square"
+      },{
+          "x": 10, 
+          "y": 100,
+		  "width" : 120,
+		  "height" : 20,
+		  "friable" : 3,
+		  "texture" : "Tiles/WaveForest_Square"
+      },{
+          "x": 170, 
+          "y": 100,
+		  "width" : 40,
+		  "height" : 20,
+		  "mouvementX" : {"debut" : 150, "fin" : 250},
+		  "texture" : "Tiles/WaveForest_Square"
+      }
+	],
+   "cibles": [ 
+        {
+          "x": 15, 
+          "y": 125,
+		  "taille" : 15,
+		  "texture" : "Characters/Red_F1"
+		},{
+          "x": 270, 
+          "y": 125,
+		  "taille" : 15,
+		  "mouvementX" : {"debut" : 150, "fin" : 270},
+		  "vitesse" : 0.1,
+		  "texture" : "Characters/White_F1"
+		},{
+          "x": 270, 
+          "y": 25,
+		  "taille" : 15,
+		  "texture" : "Characters/Yellow_F1"
+		}
+		
+   ],
+   "defis": [ 
+      {
+          "projectile": 3,
+		  "score" : 100
+      }
+   ]
+} 

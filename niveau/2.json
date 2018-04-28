@@ -1,0 +1,68 @@
+{ 
+  "projectile" : {
+		"x" : 25,
+		"y" : 115,
+		"taille" : 16,
+		"mass" : 100,
+		"texture" : "Items/64-64_EnemyBlockIron"
+	},
+  "decors": [ 
+      {
+          "x": 0, 
+          "y": 0,
+		  "width" : 300,
+		  "height" : 10,
+		  "texture" : "Tiles/WaveForest_Square"
+      },
+	   {
+          "x": 0, 
+          "y": 140,
+		  "width" : 300,
+		  "height" : 10,
+		  "texture" : "Tiles/WaveForest_Square"
+      },
+	   {
+          "x": 150, 
+          "y": 70,
+		  "width" : 20,
+		  "height" : 80,
+		  "texture" : "Tiles/WaveForest_Square"
+      },
+	   {
+          "x": 290, 
+          "y": 10,
+		  "width" : 10,
+		  "height" : 130,
+		  "texture" : "Tiles/WaveForest_MudSquare"
+      },
+	   {
+          "x": 0, 
+          "y": 10,
+		  "width" : 10,
+		  "height" : 130,
+		  "texture" : "Tiles/WaveForest_MudSquare"
+      }
+	],
+   "cibles": [ 
+        {
+          "x": 152, 
+          "y": 55,
+		  "taille" : 15,
+		  "texture" : "Characters/Yellow_F1"
+		},
+		{
+          "x": 270, 
+          "y": 120,
+		  "taille" : 20,
+		  "mouvementX" : {"gauche": true, "debut" : 190, "fin" : 270},
+		  "vitesse" : 0.2,
+		  "texture" : "Characters/White_F1"
+		}
+   ],
+   "defis": [ 
+      {
+          "projectile": 1,
+		  "score" : 200
+      }
+   ]
+} 

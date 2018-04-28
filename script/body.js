@@ -31,7 +31,6 @@ Body.prototype.setCollision = function (b) {
    pour l'objet courant et pour b
 */
 Body.prototype.collision = function (b) {
-
     var mdiff = this.mDiff(b);
     if (mdiff.hasOrigin()) {
 
@@ -54,14 +53,13 @@ Body.prototype.collision = function (b) {
 
 	if (norm_v == 0 && norm_vb == 0) {
 	    if (this.invMass == 0 && this.invMass == 0)
-		return null;
+			return null;
 	    else {
-		if (this.mass <= b.mass)
-		    kv = 1;
-		else
-		    kvb = 1
+			if (this.mass <= b.mass)
+				kv = 1;
+			else
+				kvb = 1
 	    }
-
 	};
 
 	this.move(n.mult(kv));

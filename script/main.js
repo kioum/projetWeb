@@ -1,82 +1,84 @@
 var initGame = function () {
-	//permet de mettre en reliason tous les elements de la partie	
-    var canvas = document.getElementById("decors_canvas");
+	//permet de mettre en reliason tous les elements de la partie		
+	loadLevel();
 	
-	loadLevel("niveau1");
-	
-	var renderer = new Renderer(currentPart.engine);
-				
-	
-	intervalUpdate = setInterval(function () {
-		try {
-			if(!pause)
-				renderer.update(currentPart, 1000/60, canvas);
-		} catch (e) {
-			clearInterval(intervalUpdate);
-			throw (e);
-		}
-	}, 1000/60);
-	
-	var sens = true;
-	window.addEventListener("keydown", function(ev) {
-			ev = ev || window.event;
-		var keyCode = ev.keyCode;
-		
-		//Touche z et q
-		if(keyCode == 27 && !currentPart.win()){
-			pause = !pause; 
-			renderer.pause(currentPart, canvas);
-		}
-		
-		//Touche z et q
-		if(keyCode == 81 || keyCode == 90 ||
-			keyCode == 37 || keyCode == 38 && !projMove){
-			if(pressAngle == 360)
-				pressAngle = 0;
-			if (pressAngle < 90 || (pressAngle >= 270))
-				pressAngle += 5;
-		}
-		
-		//Touche s et d
-		if(keyCode == 83 || keyCode == 68 ||
-		keyCode == 39 || keyCode == 40 && !projMove){
-			if(pressAngle == 0)
-				pressAngle = 360;
-			if (pressAngle > 270 || pressAngle <= 90)
-				pressAngle -= 5;
-		}
-		
-		if(keyCode == 32 && !projMove){
-			if(sens)
-				pressPuissance += 1;
-			else
-				pressPuissance -= 1;
+	if(document.getElementById("btn").innerHTML == "JOUER"){
+		var sens = true;
+		window.addEventListener("keydown", function(ev) {
+				ev = ev || window.event;
+			var keyCode = ev.keyCode;
 			
-			if(pressPuissance > 30 || pressPuissance < 0)
-				sens = !sens;	
-		}
-	}, false);
+			//Touche echap
+			if(keyCode == 27 && !currentPart.win()){
+				pause = !pause; 
+				currentPart.renderer.pause();
+			}
+			
+			//Touche z et q
+			if(keyCode == 81 || keyCode == 90 ||
+				keyCode == 37 || keyCode == 38 && !projMove){
+				if(pressAngle == 360)
+					pressAngle = 0;
+				if (pressAngle < 85 || (pressAngle >= 275))
+					pressAngle += 5;
+			}
+			
+			//Touche s et d
+			if(keyCode == 83 || keyCode == 68 ||
+			keyCode == 39 || keyCode == 40 && !projMove){
+				if(pressAngle == 0)
+					pressAngle = 360;
+				if (pressAngle > 275 || pressAngle <= 85)
+					pressAngle -= 5;
+			}
+			
+			//Touche espace
+			if(keyCode == 32 && !projMove){
+				if(sens)
+					pressPuissance += 0.25;
+				else
+					pressPuissance -= 0.25;
+				
+				if(pressPuissance > 30 || pressPuissance < 15)
+					sens = !sens;	
+			}
+		}, false);
 
-	window.addEventListener("keyup", function(ev) {
-		ev = ev || window.event;
-		var keyCode = ev.keyCode;
-		if(keyCode == 32 && !projMove){
-			let new_x = Math.cos(pressAngle * (Math.PI / 180));
-			let new_y = -Math.sin(pressAngle * (Math.PI / 180));
-			currentPart.projectile.force = new Vector (new_x, new_y);
-			Constants.gravity = new Vector (0, pressPuissance*0.00001);
-			projMove = true;
-		}
-	}, false);
+		window.addEventListener("keyup", function(ev) {
+			ev = ev || window.event;
+			var keyCode = ev.keyCode;
+			if(keyCode == 32 && !projMove){
+				let new_x = Math.cos(pressAngle * (Math.PI / 180));
+				let new_y = -Math.sin(pressAngle * (Math.PI / 180));
+				currentPart.projectile.force = new Vector (new_x, new_y);
+				currentPart.nbProj++;
+				projMove = true;
+			}
+		}, false);
+	}
 };
 
 
 //Initialisation du bouton play
 function init(){
+	//on initialise le fond
+	let canvas_fond = document.getElementById("fond_canvas");
+	context = canvas_fond.getContext('2d');
+	let image = new Image();
+	image.src = 'assets/clouds.png';
+	image.addEventListener("load", function() {
+		context.drawImage(image, 0, 0, canvas_fond.width, canvas_fond.height);
+	});
+	
+	//Bouton jouer ( et rejouer)
 	document.getElementById("btn").addEventListener("click", function(){
 			//On creer une nouvelle partie
-			currentPart = new Partie();
-			clearInterval(intervalUpdate);
+			if(currentPart) currentPart = new Partie(currentPart.level, currentPart.score);
+			else currentPart = new Partie(1, 0);
+			
+			//on enleve les animations Frame en cours
+			cancelAnimationFrame(requestId);
+	
 			//On initialise la partie
 			initGame();
 			
@@ -84,46 +86,181 @@ function init(){
 			projMove = false;
 			pause = false;
 			pressAngle = 0
-			pressPuissance = 0;
+			pressPuissance = 15;
 			
+			document.getElementById("btn_next").style.display = "none";
+			this.style.display = "none";
+		}
+	);
+	
+	//Bouton next level
+	document.getElementById("btn_next").addEventListener("click", function(){
+			currentPart.level++;
+			currentPart.score += currentPart.bonusScore + currentPart.scoreDefis();	
+			document.getElementById("btn").click();
 			this.style.display = "none";
 		}
 	);
 }
 
 //Permet de générer un niveau
-// ICI ça doit etre du json
-function loadLevel(niveau){
-	let decors = [];
-    decors[0] = new Sprite(new Vector(0,0), 300, 10, Infinity, "Tiles/WaveForest_Square");
-    decors[1] = new Sprite(new Vector(0,140), 300, 10, Infinity, "Tiles/WaveForest_Square");
-    decors[2] = new Sprite(new Vector(0,10), 10, 150, Infinity, "Tiles/WaveForest_Square");
-    decors[3] = new Sprite(new Vector(290,10), 10, 150, Infinity, "Tiles/WaveForest_Square");
-	decors[4] = new Sprite(new Vector(150,70), 20, 80, Infinity, "Tiles/WaveForest_Square");
+function loadLevel(){
+	// on récupère un objet XMLHttpRequest
+	var xhr = getXMLHttpRequest();
+	// on réagit à l'événement onreadystatechange
+	xhr.onreadystatechange = function() {
+		// test du statut de retour de la requête AJAX
+		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+			// on désérialise le catalogue et on le sauvegarde dans une variable
+			let niveau = JSON.parse(xhr.responseText);
+			let decors = [];
+			let cibles = [];
+			let defis = [];
+			
+			//Initialisation des decors
+			let sprite;
+			niveau["decors"].forEach(function(e){
+				sprite = new Sprite(new Vector(e.x, e.y), e.width, e.height,
+					Infinity, e.texture);
+				//S'il y'a un mouvement X
+				if(e.mouvementX)
+					sprite.mouvementX = e.mouvementX;
+				
+				//S'il y'a un mouvement Y
+				if(e.mouvementY)
+					sprite.mouvementY = e.mouvementY;
+				
+				//S'il l'objet est friable
+				if(e.friable)
+					sprite.friable = e.friable;
+				
+				//S'il y'a une vitesse predefinie
+				if(e.vitesse)
+					sprite.vitesse = e.vitesse;
+				decors.push(sprite);
+			});
+			
+			//Initialisation des cibles
+			niveau["cibles"].forEach(function(e){
+				sprite = new Sprite(new Vector(e.x, e.y), e.taille, e.taille,
+					e.taille*e.taille, e.texture);
+				
+				//S'il y'a un mouvement X
+				if(e.mouvementX)
+					sprite.mouvementX = e.mouvementX;
+				
+				//S'il y'a une vitesse predefinie
+				if(e.vitesse)
+					sprite.vitesse = e.vitesse;
+				
+				cibles.push(sprite);
+			});
+			//Initialisation des cibles
+			niveau["defis"].forEach(function(e){
+				defis.push(new Defi(e));
+			});
+			
+			let dataProj = niveau["projectile"];
+			let proj = new Sprite(new Vector(dataProj.x, dataProj.y), dataProj.taille, dataProj.taille, 
+			dataProj.mass, dataProj.texture);
+			proj.gravity = Vector.ZERO;
+			
+			currentPart.addDecors(decors);
+			currentPart.addCibles(cibles);
+			currentPart.defis = defis;
+			currentPart.addProjectile(proj);
+			
+			//On lance les animations
+			animationDuJeu()
+		//S'il n'y a plus de niveau affiche la fin du jeu
+		}else if(xhr.status == 404 && xhr.readyState == 4){
+			currentPart.renderer.finDeJeu();
+		}
+	}
+	// la requête AJAX : lecture de data.json
+    xhr.open("GET", "niveau/" + currentPart.level + ".json", true);
+	xhr.send();
+}
+
+//Fonction trouvé sur developpez.com 
+function getXMLHttpRequest() {
+    var xhr = null;
+    if (window.XMLHttpRequest || window.ActiveXObject) {
+        if (window.ActiveXObject) {
+            try {
+                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch(e) {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+        } else {
+            xhr = new XMLHttpRequest(); 
+        }
+    } else {
+        alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
+        return null;
+    }
+    return xhr;
+}
+
+//On lance les animations
+function animationDuJeu() {
+	let now = Date.now();
+    let delta = now - then;
+	let interval = 1000/fps;
 	
-	let cibles = [];
-    cibles[0] = new Sprite(new Vector(250,100), 10, 10, 50, "Characters/Red_F1");
-	cibles[1] = new Sprite(new Vector(152,55), 15, 15, 50, "Characters/Yellow_F1");
+	if (delta > interval) {		
+		if(!pause)
+			currentPart.renderer.update(pressPuissance);
+		then = now - (delta % interval);
+		
+		
+		//On calcule les fps de l'utilisateur (nombre de fois qu'on rentre ici
+		// en 1 seconde
+		if (second > 1000) {
+			second_since = Date.now();
+			second = 0;
+			
+			fps_affichage = fps_courant;
+			
+			fps_courant = 0;
+		}
+		else {
+			second = Date.now() - second_since;
+			++fps_courant;
+		}
+	}
 	
-	// Initialisation du projectile
-	let proj = new Sprite(new Vector(15, 100), 16, 16, 100, "Items/64-64_EnemyBlockIron");
-	
-	currentPart.addDecors(decors);
-	currentPart.addCibles(cibles);
-	currentPart.addProjectile(proj);
+	//Affichage des FPS 
+	let canvas = document.getElementById("decors_canvas");
+	let context = canvas.getContext("2d");
+	context.font = '10px Arial';
+	context.fillStyle = 'black';
+	context.fillText(fps_affichage + ' FPS', canvas.width - 40, 15);
+			
+	//on recupere l'id pour pouvoir le stoppé plus tard
+	requestId = requestAnimationFrame(animationDuJeu);
 }
 
 //Nouvelle partie
 var currentPart;
 
+//Pour les fps
+var fps = 60;
+
+var then = Date.now();
+var requestId = 0;
+
+var second_since = Date.now();
+var second = 0;
+var fps_courant = 0;
+var fps_affichage = 0;
+
 //Si un projectile en mouvement
 var projMove = false;
+// Si c'est en pause
 var pause = false;
 
-//interval
-var intervalUpdate;
-
 //Prend en compte l'angle et la puissance
-var pressAngle = 0, pressPuissance = 0;
+let pressAngle = 0, pressPuissance = 15;
 window.addEventListener("load", init);
 

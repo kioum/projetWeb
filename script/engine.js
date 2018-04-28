@@ -2,7 +2,6 @@ var Engine = function () {
     this.bodies = [];
 };
 
-
 Engine.prototype.addBody = function (b) {
     this.bodies.push(b);
 };
@@ -31,16 +30,16 @@ Engine.prototype.update = function (dt) {
             var res = body.collision(otherBody);
 
             if (res != null) {
-                // mise à jour des vitesses
-                body.velocity = res.velocity1;
-                otherBody.velocity = res.velocity2;
-
+                // mise à jour des vitesses (on divise pour les frottements)
+                body.velocity = res.velocity1.div(1.004);
+                otherBody.velocity = res.velocity2.div(1.004);
             };
         };
 
 		/* begin extra || gravity sur l'objet*/
-		if (Number.isFinite(body.mass))
-			body.force = body.force.add(Constants.gravity.mult(body.mass));
+		if (Number.isFinite(body.mass) && !currentPart.estProjectile(body) || 
+		(currentPart.estProjectile(body) && projMove))
+				body.force = body.force.add(Constants.gravity.mult(body.mass));
 		/* end extra */
 	  
         // On calcule la nouvelle accéleration :

@@ -12,7 +12,6 @@ Vector.prototype.sub = function (v) {
 };
 
 Vector.prototype.div = function(k){ 
-console.log(this.x);
 	return new Vector(this.x / k , this.y / k);
 }
 

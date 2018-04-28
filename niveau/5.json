@@ -1,0 +1,129 @@
+{ 
+  "projectile" : {
+		"x" : 25,
+		"y" : 65,
+		"taille" : 16,
+		"mass" : 100,
+		"texture" : "Items/64-64_EnemyBlockIron"
+	},
+  "decors": [ 
+      {
+          "x": 0, 
+          "y": 0,
+		  "width" : 300,
+		  "height" : 10,
+		  "texture" : "Tiles/WaveForest_Square"
+      },
+	   {
+          "x": 0, 
+          "y": 140,
+		  "width" : 300,
+		  "height" : 10,
+		  "texture" : "Tiles/WaveForest_Square"
+      },
+	   {
+          "x": 290, 
+          "y": 10,
+		  "width" : 10,
+		  "height" : 130,
+		  "texture" : "Tiles/WaveForest_MudSquare"
+      },
+	   {
+          "x": 0, 
+          "y": 10,
+		  "width" : 10,
+		  "height" : 130,
+		  "texture" : "Tiles/WaveForest_MudSquare"
+      },{
+          "x": 130, 
+          "y": 40,
+		  "width" : 20,
+		  "height" : 100,
+		  "texture" : "Tiles/WaveForest_Square"
+      },{
+          "x": 220, 
+          "y": 100,
+		  "width" : 40,
+		  "height" : 40,
+		  "texture" : "Tiles/WaveForest_Square"
+      },{
+          "x": 262, 
+          "y": 100,
+		  "width" : 25,
+		  "height" : 20,
+		  "friable" : 1,
+		  "texture" : "Items/64-64_CrateBrown"
+      },{
+          "x": 35, 
+          "y": 100,
+		  "width" : 95,
+		  "height" : 20,
+		  "texture" : "Tiles/WaveForest_Square"
+      },{
+          "x": 10, 
+          "y": 10,
+		  "width" : 50,
+		  "height" : 15,
+		  "texture" : "Tiles/WaveForest_MudSquare"
+      },{
+          "x": 50, 
+          "y": 25,
+		  "width" : 10,
+		  "height" : 10,
+		  "texture" : "Tiles/WaveForest_MudSquare"
+      },{
+          "x": 50, 
+          "y": 80,
+		  "width" : 20,
+		  "height" : 20,
+		  "friable" : 1,
+		  "texture" : "Items/64-64_CrateBrown"
+      },{
+          "x": 150, 
+          "y": 40,
+		  "width" : 40,
+		  "height" : 20,
+		  "mouvementX" : {"debut" : 150, "fin" : 250},
+		  "texture" : "Tiles/WaveForest_Square"
+      },{
+          "x": 150, 
+          "y": 60,
+		  "width" : 20,
+		  "height" : 20,
+		  "mouvementY" : {"debut" : 60, "fin" : 100},
+		  "texture" : "Tiles/WaveForest_Square"
+      },{
+          "x": 200, 
+          "y": 100,
+		  "width" : 20,
+		  "height" : 20,
+		  "mouvementY" : {"debut" : 60, "fin" : 100},
+		  "texture" : "Tiles/WaveForest_Square"
+      }
+	],
+   "cibles": [ 
+        {
+          "x": 205, 
+          "y": 125,
+		  "taille" : 15,
+		  "mouvementX" : {"debut" : 155, "fin" : 205},
+		  "texture" : "Characters/Red_F1"
+		},{
+          "x": 270, 
+          "y": 125,
+		  "taille" : 15,
+		  "texture" : "Characters/Yellow_F1"
+		},{
+          "x": 15, 
+          "y": 120,
+		  "taille" : 20,
+		  "texture" : "Characters/Purple_F1"
+		}
+   ],
+   "defis": [ 
+      {
+          "projectile": 3,
+		  "score" : 100
+      }
+   ]
+} 
