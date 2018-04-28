@@ -221,7 +221,7 @@ function affichageScore(x, y){
 	let context = canvas.getContext('2d');
 	context.fillStyle = 'black';
 	let image = new Image();
-	image.src = 'assets/items/floatingBar_brown.png';
+	image.src = 'assets/Items/floatingBar_brown.png';
 	context.drawImage(image, x - canvas.width/8, y, canvas.width/4, canvas.height/10);
 	
 	//Text du score
@@ -238,6 +238,6 @@ function affichageScore(x, y){
 		context.fillText(score, x - 10, y + 12);
 	
 	image = new Image();
-	image.src = 'assets/items/CoinYellow.png';
+	image.src = 'assets/Items/CoinYellow.png';
 	context.drawImage(image, x + canvas.width/16, y+3, 10, 10);
 }
