@@ -8,7 +8,7 @@ var Defi = function (d) {
 	if(d.sans != null)
 		this.sans = d.sans;
 	
-	this.score = d["score"];
+	this.score = d.score;
 };
 // Permet d'afficher les defis en text
 Defi.prototype.toString = function () {
@@ -40,19 +40,14 @@ Defi.prototype.success = function () {
 	if(!isNaN(this.friable)){
 		success = true;
 		let cpt = 0;
-		if(this.friable == 0){
-			currentPart.decors.forEach(function(element){
-				if(element.friable == element.nbTouch && !isNaN(element.nbTouch))
-					success = false;
-			});
-		}else {
-			currentPart.decors.forEach(function(element){
-				if(element.friable == element.nbTouch && !isNaN(element.nbTouch))
-					cpt++;
-			});
-			if (this.sans) success = cpt <= this.friable;
-			else success = cpt >= this.friable;
-		}
+		currentPart.decors.forEach(function(element){
+			if(element.friable == element.nbTouch && !isNaN(element.nbTouch))
+				cpt++;
+		});
+		
+		if(this.friable == 0) success = cpt ==0;
+		else if (this.sans) success = cpt <= this.friable;
+		else success = cpt >= this.friable;
 	}
 		
 	return success;

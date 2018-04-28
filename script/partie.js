@@ -35,7 +35,7 @@ Partie.prototype.win = function () {
 		  element.score = 1;
 	  }
 	  scoreTot += element.width + element.height;
-    })
+    });
 	
 	//Si le niveau est terminé on doit le scoreTot 
 	if(!tousTouche) this.bonusScore = score;
@@ -83,7 +83,7 @@ Partie.prototype.estProjectile = function (proj) {
 	return proj == this.projectile;
 };
 	
-// Permet de savoir si c'est le projectile
+// Permet de savoir le score gagner avec les defis
 Partie.prototype.scoreDefis = function () {
 	let score = 0;
 	this.defis.forEach(function(e){

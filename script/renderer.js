@@ -15,9 +15,11 @@ Renderer.prototype.update = function (dt) {
 		return;
 	}
 	
+	//Permet defacer le canvas
 	context.beginPath();
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	
+	//on update les objets et on les affiches
     this.engine.update(dt);
     this.engine.bodies.forEach(function (b) {
         b.draw(currentPart, canvas);
@@ -25,7 +27,8 @@ Renderer.prototype.update = function (dt) {
 	
 	var proj = currentPart.projectile;
 	
-	//Affichage de la fleche d'angle ( si la velocity n'est pas touché alors on l'affiche)
+	//Affichage de la fleche d'angle (si la velocity n'est pas touché alors on l'affiche)
+	//Trouvé sur le net
 	if(proj.velocity.x == 0 && proj.velocity.y == 0){
 		// le projectile peut bouger
 		projMove = false;	
@@ -77,6 +80,7 @@ Renderer.prototype.update = function (dt) {
 	context.closePath();
 };
 
+//Affichage de la pause
 Renderer.prototype.pause = function () {
 	//On démarre un nouveau tracé
 	let canvas = document.getElementById("decors_canvas");
@@ -111,6 +115,7 @@ Renderer.prototype.pause = function () {
 	context.closePath();
 };
 
+//Affichage de la fin du niveau
 Renderer.prototype.finDeNiveau = function () {
 	//btn rejouer
 	let btn_rejouer = document.getElementById("btn");
@@ -166,6 +171,7 @@ Renderer.prototype.finDeNiveau = function () {
 	context.closePath();
 };
 
+//Affichage de la fin du jeu
 Renderer.prototype.finDeJeu = function () {
 	//btn rejouer
 	let btn_rejouer = document.getElementById("btn");
@@ -212,6 +218,7 @@ Renderer.prototype.finDeJeu = function () {
 	context.closePath();
 };
 
+//Permet de tout mettre en place pour les score (img + text)
 function affichageScore(x, y){
 	//ici l'affichage du score
 	let canvas = document.getElementById("decors_canvas");

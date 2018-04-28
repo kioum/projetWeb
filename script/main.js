@@ -31,7 +31,7 @@ var initGame = function () {
 			
 			//Touche s et d
 			if(keyCode == 83 || keyCode == 68 ||
-			keyCode == 39 || keyCode == 40 && !projMove){
+				keyCode == 39 || keyCode == 40 && !projMove){
 				if(pressAngle == 0)
 					pressAngle = 360;
 				if (pressAngle > 275 || pressAngle <= 85)
@@ -83,13 +83,15 @@ function init(){
 		context.fillStyle = 'black';
 		context.fillText(document.title, canvas_fond.width/4, canvas_fond.height/4);
 		
-		//On affiche le titre
+		//On affiche les commandes
 		context.font = '12px bold Arial';
 		context.fillStyle = 'black';
 		context.fillText("Commandes :", canvas_fond.width/4 - 6, canvas_fond.height/4 + 22);
 		context.fillText("\t-\tAngle de viser : Z, Q, S, D ou les fleches", canvas_fond.width/4, canvas_fond.height/4 + 34);
 		context.fillText("\t-\tPuissance : ESPACE", canvas_fond.width/4, canvas_fond.height/4 + 46);
 		context.fillText("\t-\tPause : ECHAP (Voir les defis)", canvas_fond.width/4, canvas_fond.height/4 + 58);
+		context.font = '9px Arial';
+		context.fillText("(Changer l'angle de viser + ESPACE bloque la puissance)", 30, canvas_fond.height/4 + 75);
 	});
 	
 	//Bouton jouer ( et rejouer)
@@ -133,7 +135,7 @@ function loadLevel(){
 	xhr.onreadystatechange = function() {
 		// test du statut de retour de la requête AJAX
 		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-			// on désérialise le catalogue et on le sauvegarde dans une variable
+			// on recupere les niveaux
 			let niveau = JSON.parse(xhr.responseText);
 			let decors = [];
 			let cibles = [];

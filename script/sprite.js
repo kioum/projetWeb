@@ -14,6 +14,7 @@ Sprite.prototype.draw = function (partie, canvas) {
 	
 	let estPasCible = true;
 	let sprite = this;
+	
 	//On verifie que le sprite est une cible ou non
 	partie.cibles.forEach(function(cible){
 		if(cible == sprite)
@@ -85,39 +86,20 @@ Sprite.prototype.draw = function (partie, canvas) {
 				this.img = animation;
 		}
 		
-		// On fait bouger le sprite X
+		// On fait bouger le sprite Y
 		if(this.mouvementY){
 			//Vitesse par default si non defini
 			if(!this.vitesse)
 				this.vitesse = 0.5;
 			
-			//Premier modele qu'on choisi
-			if(!this.animation)
-				this.animation = 0;
-			
-			//On enleve les deux derniers element de l'image
-			let animation = this.img.substring(0, this.img.length-2);
 			//S'il est entre le debut et la fin on fait bouger l'animation
 			if(this.mouvementY.debut < this.origin.y && this.origin.y < this.mouvementY.fin){
-				//S'il va en haut
-				if(this.mouvementY.haut){
-					//On met a jour la position
+				//S'il va en haut on met a jour la position
+				if(this.mouvementY.haut)
 					this.origin = new Vector(this.origin.x, this.origin.y - this.vitesse);
-					//On choisi la bonne image a afficher
-					if(this.animation + this.vitesse <= 3 && !estPasCible){
-						this.animation += this.vitesse;
-						animation += "L"+ Math.ceil(this.animation);
-					}else this.animation = 0;
-				// S'il va a droite
-				}else {
-					//On met a jour la position
+				// S'il va a droite On met a jour la position
+				else
 					this.origin = new Vector(this.origin.x, this.origin.y + this.vitesse);
-					//On choisi la bonne image a afficher
-					if(this.animation + this.vitesse <= 3 && !estPasCible){
-						this.animation += this.vitesse;
-						animation += "R"+ Math.ceil(this.animation);
-					}else this.animation = 0;
-				}
 			//S'il sort de zone de mouvement le replace
 			}else if(this.mouvementY.debut >= this.origin.y){
 				this.origin = new Vector(this.origin.x, this.origin.y + this.vitesse);
@@ -126,14 +108,11 @@ Sprite.prototype.draw = function (partie, canvas) {
 				this.origin = new Vector(this.origin.x, this.origin.y - this.vitesse);
 				this.mouvementY.haut = !this.mouvementY.haut;
 			}
-			//On verifie que l'affichage de l'image n'aura pas de probleme
-			if(this.img.length == animation.length)
-				this.img = animation;
 		}
     };
     /* end extra */
 	
-	//On créer un rectangle representant le sprite en question
+	//On crée un rectangle representant le sprite en question
 	if(this.img) {
 		//affichage de l'image des sprites
 		let image = new Image();
@@ -145,7 +124,6 @@ Sprite.prototype.draw = function (partie, canvas) {
 		context.globalAlpha = 1.0;
 	} else 
 		context.fillRect(this.origin.x, this.origin.y, this.width, this.height);
-
-		
+	
 	context.closePath();
 };
