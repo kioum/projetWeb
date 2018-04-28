@@ -53,5 +53,13 @@
 		}
    ],
    "defis": [ 
+		{
+			"projectile": 1,
+			"score" : 100
+		},
+		{
+			"projectile": 2,
+			"score" : 50
+		}
    ]
 } 

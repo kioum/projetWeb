@@ -122,8 +122,12 @@
    ],
    "defis": [ 
       {
-          "projectile": 3,
-		  "score" : 100
+          "friable": 1,
+		  "sans" : "true"
+		  "score" : 200
+      },{
+          "projectile": 4,
+		  "score" : 500
       }
    ]
 } 

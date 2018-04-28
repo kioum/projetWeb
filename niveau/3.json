@@ -83,7 +83,10 @@
    "defis": [ 
       {
           "projectile": 3,
-		  "score" : 100
-      }
+		  "score" : 300
+      }, {
+          "projectile": 6,
+		  "score" : 150
+      },
    ]
 } 

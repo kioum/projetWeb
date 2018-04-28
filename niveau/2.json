@@ -63,6 +63,10 @@
       {
           "projectile": 1,
 		  "score" : 200
+      },
+	  {
+          "projectile": 2,
+		  "score" : 100
       }
    ]
 } 
