@@ -221,7 +221,7 @@ function affichageScore(x, y){
 	let context = canvas.getContext('2d');
 	context.fillStyle = 'black';
 	let image = new Image();
-	image.src = 'assets/Items/FloatingBar_brown.png';
+	image.src = 'assets/Items/FloatingBar_Brown.png';
 	context.drawImage(image, x - canvas.width/8, y, canvas.width/4, canvas.height/10);
 	
 	//Text du score
