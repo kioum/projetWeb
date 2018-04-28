@@ -123,7 +123,7 @@
    "defis": [ 
       {
           "friable": 1,
-		  "sans" : "true"
+		  "sans" : "true",
 		  "score" : 200
       },{
           "projectile": 4,
