@@ -68,6 +68,13 @@ function init(){
 	image.src = 'assets/clouds.png';
 	image.addEventListener("load", function() {
 		context.drawImage(image, 0, 0, canvas_fond.width, canvas_fond.height);
+		//on la page d'accueil
+		let canvas_decors = document.getElementById("decors_canvas");
+		context = canvas_decors.getContext('2d');
+		//On affiche le titre
+		context.font = '22px Arial';
+		context.fillStyle = 'black';
+		context.fillText(document.title, canvas_fond.width/4, canvas_fond.height/4);
 	});
 	
 	//Bouton jouer ( et rejouer)
