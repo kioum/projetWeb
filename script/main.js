@@ -59,7 +59,8 @@ var initGame = function () {
 };
 
 
-//Initialisation du bouton play
+//Initialisation des bouttons
+// et de la page d'acceuil
 function init(){
 	//on initialise le fond
 	let canvas_fond = document.getElementById("fond_canvas");
@@ -68,13 +69,21 @@ function init(){
 	image.src = 'assets/clouds.png';
 	image.addEventListener("load", function() {
 		context.drawImage(image, 0, 0, canvas_fond.width, canvas_fond.height);
-		//on la page d'accueil
+		//on affiche la page d'accueil
 		let canvas_decors = document.getElementById("decors_canvas");
 		context = canvas_decors.getContext('2d');
 		//On affiche le titre
 		context.font = '22px Arial';
 		context.fillStyle = 'black';
 		context.fillText(document.title, canvas_fond.width/4, canvas_fond.height/4);
+		
+		//On affiche le titre
+		context.font = '12px bold Arial';
+		context.fillStyle = 'black';
+		context.fillText("Commandes :", canvas_fond.width/4 - 5, canvas_fond.height/4 + 22);
+		context.fillText("\t-\tAngle de viser : Z, Q, S, D ou les fleches", canvas_fond.width/4, canvas_fond.height/4 + 34);
+		context.fillText("\t-\tPuissance : ESPACE", canvas_fond.width/4, canvas_fond.height/4 + 46);
+		context.fillText("\t-\tPause : ECHAP", canvas_fond.width/4, canvas_fond.height/4 + 58);
 	});
 	
 	//Bouton jouer ( et rejouer)

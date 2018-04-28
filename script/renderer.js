@@ -176,8 +176,6 @@ Renderer.prototype.finDeJeu = function () {
 		btn_rejouer.style.display = "block";		
 		btn_rejouer.innerHTML = "REJOUER";
 	}
-	//btn nextlevel
-	btn_rejouer.style.top = 500 + "px";
 	
 	//On démarre un nouveau tracé
 	let canvas = document.getElementById("decors_canvas");
