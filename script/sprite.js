@@ -119,13 +119,26 @@ Sprite.prototype.draw = function (partie, canvas) {
 	//On crée un rectangle representant le sprite en question
 	if(this.img) {
 		//affichage de l'image des sprites
-		let image = new Image();
-		image.src = 'assets/' + this.img + '.png';
 		let sprite = this;
+		let image = new Image();			
+		image.src = 'assets/' + this.img + '.png';
+		
+		//S'il n'a pas d'images
+		if(this.images == null){
+			this.images = [];
+		}
+		
+		//Si l'image n'est pas enregister on l'enregistre (evite de la recharger)
+		if (this.images[this.img] == null){	
+			this.images[this.img] = image;
+		}
+		
+		//Modifie l'opacité
 		if(!isNaN(this.friable))
 			context.globalAlpha = 1.0/(this.nbTouch+1);
 		
-		context.drawImage(image, sprite.origin.x, sprite.origin.y, sprite.width, sprite.height);
+		//on affiche normalement
+		context.drawImage(this.images[this.img], sprite.origin.x, sprite.origin.y, sprite.width, sprite.height);		
 		context.globalAlpha = 1.0;
 	} else 
 		context.fillRect(this.origin.x, this.origin.y, this.width, this.height);
