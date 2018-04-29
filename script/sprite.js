@@ -104,6 +104,8 @@ Sprite.prototype.draw = function (partie, canvas) {
 			//On verifie que l'affichage de l'image n'aura pas de probleme
 			if(this.img.length == animation.length)
 				this.img = animation;
+			else 
+				console.log(animation);
 		}
 		
 		// On fait bouger le sprite Y
