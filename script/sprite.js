@@ -61,8 +61,10 @@ Sprite.prototype.draw = function (partie, canvas) {
 					//On choisi la bonne image a afficher
 					if(this.animation + this.vitesse <= 3 && !estPasCible){
 						this.animation += this.vitesse;
+					}else this.animation = 0.1;
+					
+					if(!estPasCible)
 						animation += "L"+ Math.ceil(this.animation);
-					}else this.animation = 0;
 				// S'il va a droite
 				}else {
 					//On met a jour la position
@@ -70,8 +72,10 @@ Sprite.prototype.draw = function (partie, canvas) {
 					//On choisi la bonne image a afficher
 					if(this.animation + this.vitesse <= 3 && !estPasCible){
 						this.animation += this.vitesse;
+					}else this.animation = 0.1;
+					
+					if(!estPasCible)
 						animation += "R"+ Math.ceil(this.animation);
-					}else this.animation = 0;
 				}
 			//S'il sort de zone de mouvement le replace
 			}else if(this.mouvementX.debut >= this.origin.x){
@@ -120,6 +124,7 @@ Sprite.prototype.draw = function (partie, canvas) {
 		let sprite = this;
 		if(!isNaN(this.friable))
 			context.globalAlpha = 1.0/(this.nbTouch+1);
+		
 		context.drawImage(image, sprite.origin.x, sprite.origin.y, sprite.width, sprite.height);
 		context.globalAlpha = 1.0;
 	} else 
