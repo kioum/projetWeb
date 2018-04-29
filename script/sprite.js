@@ -62,7 +62,10 @@ Sprite.prototype.draw = function (partie, canvas) {
 					if(this.animation + this.vitesse <= 3 && !estPasCible){
 						this.animation += this.vitesse;
 						animation += "L"+ Math.ceil(this.animation);
-					}else this.animation = 0;
+					}else {
+						animation += "L1";
+						this.animation = 0;
+					}
 				// S'il va a droite
 				}else {
 					//On met a jour la position
@@ -71,7 +74,10 @@ Sprite.prototype.draw = function (partie, canvas) {
 					if(this.animation + this.vitesse <= 3 && !estPasCible){
 						this.animation += this.vitesse;
 						animation += "R"+ Math.ceil(this.animation);
-					}else this.animation = 0;
+					}else {
+						animation += "R1";
+						this.animation = 0;
+					}
 				}
 			//S'il sort de zone de mouvement le replace
 			}else if(this.mouvementX.debut >= this.origin.x){
