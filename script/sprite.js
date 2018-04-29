@@ -92,7 +92,7 @@ Sprite.prototype.draw = function (partie, canvas) {
 				this.mouvementX.gauche = !this.mouvementX.gauche;
 			}else if(this.origin.x >= this.mouvementX.fin){
 				this.origin = new Vector(this.origin.x - this.vitesse, this.origin.y);
-				if(this.animation + this.vitesse <= 3 && s!estPasCible){
+				if(this.animation + this.vitesse <= 3 && !estPasCible){
 					this.animation += this.vitesse;
 					animation += "R"+ Math.ceil(this.animation);
 				}else {
