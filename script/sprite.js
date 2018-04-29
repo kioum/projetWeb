@@ -82,9 +82,23 @@ Sprite.prototype.draw = function (partie, canvas) {
 			//S'il sort de zone de mouvement le replace
 			}else if(this.mouvementX.debut >= this.origin.x){
 				this.origin = new Vector(this.origin.x + this.vitesse, this.origin.y);
+				if(this.animation + this.vitesse <= 3 && !estPasCible){
+					this.animation += this.vitesse;
+					animation += "L"+ Math.ceil(this.animation);
+				}else {
+					animation += "L1";
+					this.animation = 0;
+				}
 				this.mouvementX.gauche = !this.mouvementX.gauche;
 			}else if(this.origin.x >= this.mouvementX.fin){
 				this.origin = new Vector(this.origin.x - this.vitesse, this.origin.y);
+				if(this.animation + this.vitesse <= 3 && s!estPasCible){
+					this.animation += this.vitesse;
+					animation += "R"+ Math.ceil(this.animation);
+				}else {
+					animation += "R1";
+					this.animation = 0;
+				}
 				this.mouvementX.gauche = !this.mouvementX.gauche;
 			}
 			//On verifie que l'affichage de l'image n'aura pas de probleme
